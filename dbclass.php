@@ -17,7 +17,11 @@ class DBCLass {
         }
 
 	}
-
+    public function q($sql = ''){
+        if ($result = $this->mysqli->query($sql)){
+            return $result;
+        }
+    }
     public function sqlOne($sql = ''){
         if ($result = $this->mysqli->query($sql)){
             return $result->fetch_row();
