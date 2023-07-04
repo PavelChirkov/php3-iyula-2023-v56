@@ -26,7 +26,7 @@
                 $r .= '<ul>';
             }
 
-            if($lvl >1 && $type == 'list'){
+            if($lvl >1 && ($type == 'list' || $type == 'listadmin')){
                 $r .= '<details>';
             }
             while ( $row = mysqli_fetch_array($result,MYSQLI_ASSOC) ) {
@@ -43,7 +43,7 @@
 
                 if($type == 'listadmin'){
                     $r .= '
-                    <form action="/update?id='.$row["id"].'" method="POST"><input name="name" value="'.$row["name"].'"><textarea name="description">'.$row["description"].'</textarea><input type="submit" value="Изменить"></form>
+                    <form action="/update?id='.$row["id"].'" method="POST"><input name="name" value="'.$row["name"].'"><br><textarea name="description">'.$row["description"].'</textarea><br><input type="submit" value="Изменить"></form>
                     <a href="/delete?id='.$row["id"].'">Удалить</a>
                     '; 
                 }else{
@@ -65,7 +65,7 @@
                 }
             }
 
-            if($lvl >1 && $type == 'list'){
+            if($lvl >1 && ($type == 'list' || $type == 'listadmin')){
                 $r .= '</details>';
             }
             if($type == 'select' && $lvl == 1){

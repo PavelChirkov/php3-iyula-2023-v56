@@ -1,4 +1,4 @@
-<div class="center">
+<div class="center-block"">
     <h2>Вход на страницу администратора:</h2>
     <?if(isset($_GET['error']) && $_GET['error'] == 1){?>
         <p>Проверьте введенные данные на ошибки</p>

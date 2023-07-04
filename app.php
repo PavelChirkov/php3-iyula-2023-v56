@@ -18,10 +18,7 @@ class app{
 
         if($this->url === 'page'){
 
-            $this->title = "Обычная страница";
-            $this->description = "Краткое описание обычной страницы";
-            $this->page = new pageclass($this->title, $this->description);
-            echo $this->page->create();
+            echo $this->page();
 
         }elseif($this->url == 'exit' or $this->url == 'admin' or $this->url == 'enter' or $this->url =='add_element' or $this->url == 'login' or $this->url == 'update' or $this->url == 'delete'){
             $this->title = "Страница администратора";
@@ -36,7 +33,12 @@ class app{
     }
 
     function page(){
+
+        $this->title = "Обычная страница";
+        $this->description = "Краткое описание обычной страницы";
+        $this->page = new pageclass($this->title, $this->description);
         $content = $this->_head();
+        $content .= $this->page->create();
         $content .=  $this->_footer();
         return $content;
     }
