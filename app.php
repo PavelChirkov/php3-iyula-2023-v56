@@ -20,7 +20,20 @@ class app{
 
             echo $this->page();
 
-        }elseif($this->url == 'exit' or $this->url == 'admin' or $this->url == 'enter' or $this->url =='add_element' or $this->url == 'login' or $this->url == 'update' or $this->url == 'delete'){
+        }elseif($this->url == 'exit'
+                or 
+                $this->url == 'admin' 
+                or 
+                $this->url == 'enter' 
+                or 
+                $this->url =='add_element' 
+                or 
+                $this->url == 'login' 
+                or 
+                $this->url == 'update' 
+                or 
+                $this->url == 'delete'){
+                
             $this->title = "Страница администратора";
             $this->description = "Краткое описание страницы администратора";
             $this->_head();

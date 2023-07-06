@@ -1,14 +1,15 @@
 <?php
 function url_get($name = ''){
     if(isset($_GET[$name])) {
-        return $_GET[$name];
+        return htmlspecialchars(trim(strip_tags($_GET[$name])));
     } else {
         return false;
-    }
+    } 
 }
 
-function url_post($name = ''){
-    if($_POST[$name]) return $_POST[$name];
+function url_post($name = ''):string
+{
+    if($_POST[$name]) return htmlspecialchars(trim(strip_tags($_POST[$name])));
     else return "0";
 }
 

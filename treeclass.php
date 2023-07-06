@@ -2,46 +2,45 @@
 
  class treeclass{
     private $db;
-    private $name ='';
 
-
-    function __construct($url = '') {
-        $this->db = new DBClass();
+    function __construct() {
+        $this->db = &$GLOBALS['db'];
     }
-    public function create($type = 'select'){
+    public function create(string $type = 'select'){
        return $this->show_tree($type, 0, 0);
     }
 
-    private function show_tree($type = '',$ParentID, $lvl) { 
-        $lvl++; 
+    private function show_tree(string $ttype,int $ParentID, int $lvl) { 
+        
         $SQL="SELECT * FROM `object` WHERE parent=".$ParentID." ";
         $result = $this->db->q($SQL);
         $r = '';
         if ($result->num_rows > 0) {
-            if($type == 'select' && $lvl == 1){
+            $lvl++; 
+            if($ttype == 'select' && $lvl == 1){
                 $r .= '<select name="parent"> <option value="0">Нет родительского элемента</option>'; 
-            }else if($type == 'list'){
+            }else if($ttype == 'list'){
                 $r .= '<ul class="ullist">';
-            }else if($type == 'listadmin'){
+            }else if($ttype == 'listadmin'){
                 $r .= '<ul>';
             }
 
-            if($lvl >1 && ($type == 'list' || $type == 'listadmin')){
+            if($lvl >1 && ($ttype == 'list' || $ttype == 'listadmin')){
                 $r .= '<details>';
             }
             while ( $row = mysqli_fetch_array($result,MYSQLI_ASSOC) ) {
 
-                if($type == 'select'){
+                if($ttype == 'select'){
                     $r .= '<option value="'.$row["id"].'">'; 
-                }else if($type == 'list'){
+                }else if($ttype == 'list'){
                     $r .= '<li data-description="'.$row["description"].'">';
-                }else if($type == 'listadmin'){
+                }else if($ttype == 'listadmin'){
                     $r .= '<li>';
                 }
 
 
 
-                if($type == 'listadmin'){
+                if($ttype == 'listadmin'){
                     $r .= '
                     <form action="/update?id='.$row["id"].'" method="POST"><input name="name" value="'.$row["name"].'"><br><textarea name="description">'.$row["description"].'</textarea><br><input type="submit" value="Изменить"></form>
                     <a href="/delete?id='.$row["id"].'">Удалить</a>
@@ -53,26 +52,26 @@
                     $r .= $row["name"];
                 }
 
-                $r .= $this->show_tree($type, $row["id"], $lvl); 
+                $r .= $this->show_tree($ttype, $row["id"], $lvl); 
 
 
-                if($type == 'select'){
+                if($ttype == 'select'){
                     $r .= '</option value="'.$row["id"].'">'; 
-                }else if($type == 'list'){
+                }else if($ttype == 'list'){
                     $r .= '</li>';
-                }else if($type == 'listadmin'){
+                }else if($ttype == 'listadmin'){
                     $r .= '</li>';
                 }
             }
 
-            if($lvl >1 && ($type == 'list' || $type == 'listadmin')){
+            if($lvl >1 && ($ttype == 'list' || $ttype == 'listadmin')){
                 $r .= '</details>';
             }
-            if($type == 'select' && $lvl == 1){
+            if($ttype == 'select' && $lvl == 1){
                 $r .= '</select>'; 
-            }else if($type == 'list'){
+            }else if($ttype == 'list'){
                 $r .= '</ul>';
-            }else if($type == 'listadmin'){
+            }else if($ttype == 'listadmin'){
                 $r .= '</ul>';
             }
 

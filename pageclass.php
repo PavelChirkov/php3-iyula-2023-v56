@@ -2,12 +2,9 @@
 
 
 class pageclass{
-    private $url;
-    private $db;
+
 
     function __construct($title = '',$description = '') {
-        $this->db = new DBClass();
-
     }    
 
     public function create(){
